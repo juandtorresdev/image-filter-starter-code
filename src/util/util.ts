@@ -16,7 +16,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
         method: 'get',
         url: inputURL,
         responseType: 'arraybuffer'
-      }).then(function ({ data: imageBuffer }) {
+      }).then(function ({ data: imageBuffer }: { data: any }) {
         return Jimp.read(imageBuffer)
       });
 
@@ -26,7 +26,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
         .resize(256, 256) // resize
         .quality(60) // set JPEG quality
         .greyscale() // set greyscale
-        .write(__dirname + outpath, (img) => {
+        .write(__dirname + outpath, () => {
           resolve(__dirname + outpath);
         });
     } catch (error) {
